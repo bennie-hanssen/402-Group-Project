@@ -1,0 +1,51 @@
+import javax.swing.JFrame; 
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+/////////This implemenets actions from the button
+public class Password implements ActionListener {
+    //Strings for Buttons 
+        private static JLabel passwordlabel;  
+        private static JTextField passwordText; 
+        private static JButton button;
+    public static void main(String [] args) { 
+
+
+        //Sizing of the frame
+        JPanel panel = new JPanel();
+        JFrame frame = new JFrame(); 
+        frame.setSize(350,300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        frame.add(panel);
+
+        panel.setLayout(null);
+
+        //This is the label for password
+        JLabel passwordlabel = new JLabel("Password");
+        passwordlabel.setBounds(20,40,100,25);
+        panel.add(passwordlabel); 
+        JTextField passwordText = new JTextField(); 
+        passwordText.setBounds (100,20,165,25); 
+        panel.add(passwordText); 
+
+        //Button to check for requirmets
+        JButton button = new JButton("Check");
+        button.setBounds(10, 80, 80, 25);
+        button.addActionListener(new Password()); 
+        panel.add(button);
+
+        frame.setVisible(true); 
+    }    
+        //@Override 
+        public void actionPerformed (ActionEvent e) { 
+            System.out.println("Password requirement Sucessful");
+
+    }
+
+
+
+}
