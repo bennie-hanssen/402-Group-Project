@@ -2,7 +2,7 @@
 public class CheckPassword implements PasswordChecker {
 	String password;
 	int score;
-	boolean resultLenght, resultSpecial;
+	boolean resultLenght, resultSpecial, resultUpper, resultNumber;
 	String specialCharactersString = "!@#$%&*()'+,-./:;<=>?[]^_`{|}";
 
 	/*
@@ -30,29 +30,48 @@ public class CheckPassword implements PasswordChecker {
 	}
 
 	/*
-	 * method to check if there is a special character
+	 * Method to check if there is a special character
 	 */
 	public boolean checkSpecialCharacter() {
-		if (password.matches("[^a-z A-Z 0-9]")) {
-			resultSpecial = true;
-			score += 1; // add to the score
-
-		} else {
-			resultSpecial = false;
+		for (int i = 0; i < password.length(); i++) {
+	        if (password.matches("(?=.*[!@#$%^&*()]).*")){
+	            score++;
+				resultSpecial = true;
+			} else {
+				resultSpecial = false;
+			}
+			}
+		return resultSpecial;
 		}
 
-		return resultSpecial;
-	}
-
-	@Override
-	public boolean checkUpperCase() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
+	/*
+	 * method to check if there is at least a number.
+	 */
 	public boolean checkNumber() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		for (int i = 0; i < password.length(); i++) {
+            if (password.matches("(?=.*[1-9]).*")){
+	            score++;
+	            resultNumber = true;
+			} else {
+				resultNumber = false;
+			}
+			}
+		return resultNumber;
+		}
+
+
+	/*
+	 * method to check if there is at least an upper case character
+	 */
+	public boolean checkUpperCase() {
+		for (int i = 0; i < password.length(); i++) {
+            if (password.matches("(?=.*[A-Z]).*")){
+	            score++;
+	            resultUpper = true;
+			} else {
+				resultUpper = false;
+			}
+			}
+		return resultUpper;
+		}
 }
