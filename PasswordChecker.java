@@ -1,5 +1,7 @@
 /**
  * Interface for the passwordChecker
+ * 
+ * @version March 30, 2023
  */
 
 public interface PasswordChecker {

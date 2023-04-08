@@ -1,20 +1,33 @@
-
+/**
+ * Password checker class
+ * 
+ * @version Apr 8, 2023
+ * 
+ */
 public class CheckPassword implements PasswordChecker {
 	String password;
 	int score;
-	boolean resultLenght, resultSpecial, resultUpper, resultNumber;
+	boolean resultLenght, resultSpecial, resultUpper, resultNumber, resultEmptySpace;
 	String specialCharactersString = "!@#$%&*()'+,-./:;<=>?[]^_`{|}";
 
-	/*
-	 * constructor
+	/**
+	 * Constructor for CheckPassword
+	 * 
+	 * @param
+	 * String password
+	 * 
 	 */
 	public CheckPassword(String password) {
 		this.password = password;
 		score = 0;
 	}
 
-	/*
-	 * method to check the length
+	/**
+	 * Method to check the length.
+	 * 
+	 * @return
+	 * true if the length is at least 12
+	 * 
 	 */
 	public boolean checkLenght() {
 		// check if the length of the string is at least 12
@@ -23,55 +36,99 @@ public class CheckPassword implements PasswordChecker {
 			score += password.length();
 			// set resultLenght to true
 			resultLenght = true;
-		} else {
+		}
+		else {
 			resultLenght = false;
 		}
 		return resultLenght;
 	}
 
-	/*
-	 * Method to check if there is a special character
+	/**
+	 * Method to check if there is a special character.
+	 * 
+	 * @return
+	 * true if there is a special character
+	 * 
 	 */
 	public boolean checkSpecialCharacter() {
 		for (int i = 0; i < password.length(); i++) {
 	        if (password.matches("(?=.*[!@#$%^&*()]).*")){
-	            score++;
 				resultSpecial = true;
 			} else {
 				resultSpecial = false;
 			}
-			}
-		return resultSpecial;
 		}
+		score++;
+		return resultSpecial;
+	}
 
-	/*
-	 * method to check if there is at least a number.
+	/**
+	 * Method to check if there is at least a number.
+	 * 
+	 * @return
+	 * true if there is a number
 	 */
 	public boolean checkNumber() {
 		for (int i = 0; i < password.length(); i++) {
-            if (password.matches("(?=.*[1-9]).*")){
-	            score++;
+            if (password.matches("(?=.*[0-9]).*")){
 	            resultNumber = true;
 			} else {
 				resultNumber = false;
 			}
-			}
-		return resultNumber;
 		}
+		score++;
+		return resultNumber;
+	}
+	
+	/**
+	 * Method to check if the string has at least an empty space or is empty
+	 * 
+	 * @return 
+	 * true if there is an empty space
+	 * 
+	 */
+	public boolean checkEmptySpace() {
+		boolean emptyString = password.isBlank();
+		boolean containsEmptySpace = password.contains(" ");
+		for (int i = 0; i < password.length(); i++) {
+            if (emptyString == true  || containsEmptySpace == true){
+	            resultEmptySpace = true;
+	    		score --;
+
+			} else {
+				resultEmptySpace = false;
+			}
+		}
+		return resultEmptySpace;
+	}
 
 
-	/*
-	 * method to check if there is at least an upper case character
+	/**
+	 * Method to check if there is at least an upper case character.
+	 * 
+	 * @return
+	 * true when there is an upper case character
+	 * 
 	 */
 	public boolean checkUpperCase() {
 		for (int i = 0; i < password.length(); i++) {
             if (password.matches("(?=.*[A-Z]).*")){
-	            score++;
 	            resultUpper = true;
 			} else {
 				resultUpper = false;
 			}
 			}
+		score++;
 		return resultUpper;
 		}
+	
+	/**
+	 * 
+	 * @return
+	 * int score
+	 * 
+	 */
+	public int getScore() {
+		return score;
+	}
 }
