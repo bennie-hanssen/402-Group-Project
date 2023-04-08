@@ -2,37 +2,34 @@
 public class TesterCheckPassword {
 
 	public static void main(String[] args) {
-		
-		
-		CheckPassword psswd = new CheckPassword("klmnoPQR");
-		boolean resultLenght = psswd.checkLenght();
-		boolean resultSpecial = psswd.checkSpecialCharacter();
-		boolean resultUpper = psswd.checkUpperCase();
-		boolean resultNumber = psswd.checkNumber();
-		
-		String output = "";
+		CheckPassword psswd = new CheckPassword("123!defghijklmnoPQR");
+		boolean result = psswd.checkLenght();
+		if (result == true) {
+			System.out.println("lenght true");
+		} else {
+			System.out.println("lenght false");
+		}
 
-		
-		if (resultLenght == true && resultSpecial == true 
-					&& resultUpper == true && resultNumber == true) {
-			output = "Congrats! Your poassword is valid!";
-		}
-		else {
-			output = "Oh no! Invalid password:\n";
-			if (resultLenght == false) {
-				output += "	- less than 12 characters\n";
-			}
-			if (resultSpecial == false) {
-				output += "	- no special character(s)\n";
-			}
-			if (resultUpper == false) {
-				output += "	- no upper case character(s)\n";
-			}
-			if (resultNumber == false) {
-				output += "	- no number(s)\n";
-			}
+		boolean resultSpecial = psswd.checkSpecialCharacter();
+		if (resultSpecial == true) {
+			System.out.println("SpecialC true");
+		} else {
+			System.out.println("SpecialC false");
 		}
 		
-		System.out.println(output);
+		boolean resultUpper = psswd.checkUpperCase();
+		if (resultUpper == true) {
+			System.out.println("Upper true");
+		} else {
+			System.out.println("Upper false");
+		}
+		
+		boolean resultNumber = psswd.checkNumber();
+		if (resultNumber == true) {
+			System.out.println("Number true");
+		} else {
+			System.out.println("Number false");
+		}
 	}
+
 }
