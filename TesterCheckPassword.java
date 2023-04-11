@@ -48,6 +48,8 @@ public class TesterCheckPassword {
 		
 		String outputStrenght = "Strenght: ";
 		//check how strong the password is
+		//A: Might have to look at these values again later, also would
+		//prefer giving the numerical score as well
 		if (score < 15) {
 			outputStrenght += "poor";
 		}

@@ -4,11 +4,12 @@
  * @version Apr 8, 2023
  * 
  */
+
 public class CheckPassword implements PasswordChecker {
 	String password;
-	int score;
+	int score, baseLenght;
 	boolean resultLenght, resultSpecial, resultUpper, resultNumber, resultEmptySpace;
-	String specialCharactersString = "!@#$%&*()'+,-./:;<=>?[]^_`{|}";
+//	String specialCharactersString = "!@#$%&*()'+,-./:;<=>?[]^_`{|}";
 
 	/**
 	 * Constructor for CheckPassword
@@ -20,6 +21,7 @@ public class CheckPassword implements PasswordChecker {
 	public CheckPassword(String password) {
 		this.password = password;
 		score = 0;
+		baseLenght = 12; //A: Make this a constant
 	}
 
 	/**
@@ -29,11 +31,13 @@ public class CheckPassword implements PasswordChecker {
 	 * true if the length is at least 12
 	 * 
 	 */
+	//A: Should have 3 thresholds instead, that award a point each
+	//Just 3 ifs in a row for 12, 14 and 16 character length
 	public boolean checkLenght() {
 		// check if the length of the string is at least 12
 		if (password.length() >= 12) {
 			// add the length to the score
-			score += password.length();
+			score += password.length()- baseLenght ;
 			// set resultLenght to true
 			resultLenght = true;
 		}
@@ -50,6 +54,8 @@ public class CheckPassword implements PasswordChecker {
 	 * true if there is a special character
 	 * 
 	 */
+	//A: Make char array then iterate through each index and see if the character
+	//is in the password using password.contains(char)
 	public boolean checkSpecialCharacter() {
 		for (int i = 0; i < password.length(); i++) {
 	        if (password.matches("(?=.*[!@#$%^&*()]).*")){
@@ -68,6 +74,7 @@ public class CheckPassword implements PasswordChecker {
 	 * @return
 	 * true if there is a number
 	 */
+	//A: Same as special char note but as an int instead of char
 	public boolean checkNumber() {
 		for (int i = 0; i < password.length(); i++) {
             if (password.matches("(?=.*[0-9]).*")){
@@ -76,7 +83,7 @@ public class CheckPassword implements PasswordChecker {
 				resultNumber = false;
 			}
 		}
-		score++;
+		score++; //In the if
 		return resultNumber;
 	}
 	
