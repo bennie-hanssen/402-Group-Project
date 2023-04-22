@@ -2,67 +2,87 @@
  * Creates output strings using PasswordChecker methods
  * 
  * 
- *@version Apr 8, 2023
+ * @version Apr 22, 2023
  */
 public class TesterCheckPassword {
 
 	public static void main(String[] args) {
-		
 
-		CheckPassword psswd = new CheckPassword("kbcgedfhgtj5!");	
+		CheckPassword psswd = new CheckPassword("1!Abcdgfhdts "); // variable that contains the password
+
+		boolean validity; // variable that will be used to declare if the password is valid or not
+
+		/*
+		 * Use the methods from CheckPassword and assign the return value to its
+		 * respective local variable
+		 */
 		boolean resultLenght = psswd.checkLenght();
 		boolean resultSpecial = psswd.checkSpecialCharacter();
 		boolean resultUpper = psswd.checkUpperCase();
+		boolean resultLower = psswd.checkLowerCase();
 		boolean resultNumber = psswd.checkNumber();
 		boolean resultEmpty = psswd.checkEmptySpace();
-		int score = psswd.getScore();
 
-		
+		int score = psswd.getScore(); // variable for the total score
+
+		/*
+		 * empty string that will say if the password is valid. If not valid, it will
+		 * say why.
+		 */
 		String outputValid = "";
-		//check if all the parameters are respected
-		if (resultLenght == true && resultSpecial == true 
-					&& resultUpper == true && resultNumber == true && resultEmpty == false) {
+
+		// check if all the parameters are respected
+		if (resultLenght == true && resultSpecial == true && resultUpper == true && resultLower == true
+				&& resultNumber == true && resultEmpty == false) {
 			outputValid = "Congrats! Your password is valid!";
+			validity = true;
 		}
+		// else set the string to invalid
 		else {
-			//else set the string to invalid
 			outputValid = "Oh no! Invalid password:\n";
-			if (resultLenght == false) {	//check if the length requirement is respected
+			validity = false;
+			if (resultLenght == false) { // check if the length requirement is respected
 				outputValid += "	- less than 12 characters\n";
 			}
-			if (resultSpecial == false) {	//check if the special character requirement is respected
+			if (resultSpecial == false) { // check if the special character requirement is respected
 				outputValid += "	- no special character(s)\n";
 			}
-			if (resultUpper == false) {		//check if the upper case character requirement is respected
+			if (resultUpper == false) { // check if the upper case character requirement is respected
 				outputValid += "	- no upper case character(s)\n";
 			}
-			if (resultNumber == false) {		//check if the number requirement is respected
+			if (resultLower == false) { // check if the lower case character requirement is respected
+				outputValid += "	- no lower case character(s)\n";
+			}
+			if (resultNumber == false) { // check if the number requirement is respected
 				outputValid += "	- no number(s)\n";
 			}
-			if (resultEmpty == true) {		//check if there is an empty space or the string is blank
+			if (resultEmpty == true) { // check if there is an empty space or the string is blank
 				outputValid += "	- the password has empty spaces or is empty\n";
 			}
 		}
 		System.out.println(outputValid);
-		
+
 		/*
-		 * Output string for the strenght of the password and score
+		 * Output string for the strength of the password and score
 		 */
 		String outputStrenght = "\nStrenght: ";
 
-		if (score < 4) {
+		// If password is not valid, it will have poor strength
+		if (validity == false) {
 			outputStrenght += "poor";
 		}
-		else if (score == 4) {
-			outputStrenght += "fair";
-		}
-		else if (score > 4 && score <= 6 ) {
-			outputStrenght += "good";
-		}
+
+		// If password is valid, the strength will depend on its score
 		else {
-			outputStrenght += "very good";
+			if (score == 7) {
+				outputStrenght += "fair";
+			} else if (score > 7 && score <= 9) {
+				outputStrenght += "good";
+			} else {
+				outputStrenght += "very good";
+			}
+			outputStrenght += "\nscore: " + score;
 		}
-		outputStrenght += "\nscore: " + score;
 		System.out.println(outputStrenght);
 	}
 }

@@ -3,23 +3,21 @@ import java.util.stream.IntStream;
 /**
  * Password checker class
  * 
- * @version Apr 21, 2023
+ * @version Apr 22, 2023
  * 
  */
 
 public class CheckPassword implements PasswordChecker {
 	private String password, specialCharactersString, numberRange, alphabetString;
-	private char[] passwordArray, specialCharArray, upperArray, numbersArray;
+	private char[] passwordArray, specialCharArray, upperArray, lowerArray, numbersArray;
 	private int score, lenght, counter;
 	private final int MINLENGHT = 12;
-	private boolean resultLenght, resultSpecial, resultUpper, resultNumber, resultEmptySpace;
-
+	private boolean resultLenght, resultSpecial, resultUpper, resultLower, resultNumber, resultEmptySpace;
 
 	/**
 	 * Constructor for CheckPassword
 	 * 
-	 * @param
-	 * String password
+	 * @param String password
 	 * 
 	 */
 	public CheckPassword(String password) {
@@ -35,8 +33,7 @@ public class CheckPassword implements PasswordChecker {
 	/**
 	 * Method to check the length.
 	 * 
-	 * @return
-	 * true if the length is at least 12
+	 * @return true if the length is at least 12
 	 * 
 	 */
 
@@ -47,7 +44,7 @@ public class CheckPassword implements PasswordChecker {
 			score += 1;
 		}
 		// check if the length of the string is 14 or 15 and add 2 to the score
-		else if (lenght >= 14 && lenght <16) {
+		else if (lenght >= 14 && lenght < 16) {
 			resultLenght = true;
 			score += 2;
 		}
@@ -55,7 +52,7 @@ public class CheckPassword implements PasswordChecker {
 		else if (lenght >= 16) {
 			resultLenght = true;
 			score += 3;
-		}		
+		}
 		// if none of those are true, set resultLenght as false
 		else {
 			resultLenght = false;
@@ -66,28 +63,32 @@ public class CheckPassword implements PasswordChecker {
 	/**
 	 * Method to check if there is a special character.
 	 * 
-	 * @return
-	 * true if there is a special character
+	 * @return true if there is a special character
 	 * 
 	 */
-	//A: Make char array then iterate through each index and see if the character
-	//is in the password using password.contains(char)
+	// A: Make char array then iterate through each index and see if the character
+	// is in the password using password.contains(char)
 	public boolean checkSpecialCharacter() {
 		specialCharArray = specialCharactersString.toCharArray();
-		
+
 		for (int i = 0; i < lenght; i++) {
 			for (int y = 0; y < specialCharactersString.length(); y++) {
-		        if (specialCharArray [y] == passwordArray [i]){
-		        	counter ++;
-		        }
+				if (specialCharArray[y] == passwordArray[i]) {
+					counter++;
+				}
 			}
 		}
 		if (counter > 0) {
-			score += counter;
-			resultSpecial = true;
-		}
-		else {
+			if (counter > 2) {
+				score += 2;
+				resultSpecial = true;
+			} else {
+				score++;
+				resultSpecial = true;
+			}
+		} else {
 			resultSpecial = false;
+			score--;
 		}
 		counter = 0;
 		return resultSpecial;
@@ -96,85 +97,131 @@ public class CheckPassword implements PasswordChecker {
 	/**
 	 * Method to check if there is at least a number.
 	 * 
-	 * @return
-	 * true if there is a number
+	 * @return true if there is a number
 	 */
 	public boolean checkNumber() {
 		numbersArray = numberRange.toCharArray();
-		
+
 		for (int i = 0; i < (lenght); i++) {
-			for (int y = 0; y < numbersArray.length ; y++) {
-		        if (numbersArray [y] == passwordArray [i]){
-		        	counter ++;
-		        }
+			for (int y = 0; y < numbersArray.length; y++) {
+				if (numbersArray[y] == passwordArray[i]) {
+					counter++;
+				}
 			}
 		}
 		if (counter > 0) {
-			score += counter;
-			resultNumber = true;
-		}
-		else {
+			if (counter > 2) {
+				score += 2;
+				resultNumber = true;
+			} else {
+				score++;
+				resultNumber = true;
+			}
+		} else {
 			resultNumber = false;
+			score--;
 		}
 		counter = 0;
 		return resultNumber;
 	}
-	
+
 	/**
-	 * Method to check if the string has at least an empty space or is empty
+	 * Method to check if the string has an empty space or is empty
 	 * 
-	 * @return 
-	 * true if there is an empty space
+	 * @return true if there is an empty space
 	 * 
 	 */
 	public boolean checkEmptySpace() {
 		boolean emptyString = password.isBlank();
 		boolean containsEmptySpace = password.contains(" ");
 		for (int i = 0; i < password.length(); i++) {
-            if (emptyString == true  || containsEmptySpace == true){
-	            resultEmptySpace = true;
-	    		score --;
-
-			} else {
-				resultEmptySpace = false;
+			if (emptyString == true || containsEmptySpace == true) {
+				counter++;
 			}
 		}
+		if (counter > 0) {
+			score--;
+			resultEmptySpace = true;
+		}
+		if (counter > 2) {
+			score -= 2;
+			resultEmptySpace = true;
+		} else {
+			resultEmptySpace = false;
+			score++;
+		}
+
+		counter = 0;
 		return resultEmptySpace;
 	}
-
 
 	/**
 	 * Method to check if there is at least an upper case character.
 	 * 
-	 * @return
-	 * true when there is an upper case character
+	 * @return true when there is an upper case character
 	 * 
 	 */
 	public boolean checkUpperCase() {
 		upperArray = alphabetString.toUpperCase().toCharArray();
-		
+
 		for (int i = 0; i < lenght; i++) {
 			for (int y = 0; y < upperArray.length; y++) {
-		        if (upperArray [y] == passwordArray [i]){
-		        	counter ++;
-		        }
+				if (upperArray[y] == passwordArray[i]) {
+					counter++;
+				}
 			}
 		}
 		if (counter > 0) {
-			score += counter;
-			resultUpper = true;
-		}
-		else {
+			if (counter > 2) {
+				score += 2;
+				resultUpper = true;
+			} else {
+				score++;
+				resultUpper = true;
+			}
+		} else {
 			resultUpper = false;
+			score--;
 		}
 		counter = 0;
 		return resultUpper;
 	}
-	
+
+	/**
+	 * Method to check if there is at least a lower case character.
+	 * 
+	 * @return true when there is a lower case character
+	 * 
+	 */
+	public boolean checkLowerCase() {
+		lowerArray = alphabetString.toCharArray();
+
+		for (int i = 0; i < lenght; i++) {
+			for (int y = 0; y < lowerArray.length; y++) {
+				if (lowerArray[y] == passwordArray[i]) {
+					counter++;
+				}
+			}
+		}
+		if (counter > 0) {
+			if (counter > 2) {
+				score += 2;
+				resultLower = true;
+			} else {
+				score++;
+				resultLower = true;
+			}
+		} else {
+			resultUpper = false;
+			score--;
+		}
+		counter = 0;
+		return resultLower;
+	}
+
 	/**
 	 * 
-	 * @return
-	 * int score
+	 * @return int score
 	 * 
 	 */
 	public int getScore() {
