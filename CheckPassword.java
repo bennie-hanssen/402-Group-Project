@@ -1,15 +1,19 @@
+import java.util.stream.IntStream;
+
 /**
  * Password checker class
  * 
- * @version Apr 8, 2023
+ * @version Apr 21, 2023
  * 
  */
 
 public class CheckPassword implements PasswordChecker {
-	String password;
-	int score, baseLenght;
-	boolean resultLenght, resultSpecial, resultUpper, resultNumber, resultEmptySpace;
-//	String specialCharactersString = "!@#$%&*()'+,-./:;<=>?[]^_`{|}";
+	private String password, specialCharactersString, numberRange, alphabetString;
+	private char[] passwordArray, specialCharArray, upperArray, numbersArray;
+	private int score, lenght, counter;
+	private final int MINLENGHT = 12;
+	private boolean resultLenght, resultSpecial, resultUpper, resultNumber, resultEmptySpace;
+
 
 	/**
 	 * Constructor for CheckPassword
@@ -20,8 +24,12 @@ public class CheckPassword implements PasswordChecker {
 	 */
 	public CheckPassword(String password) {
 		this.password = password;
+		passwordArray = password.toCharArray();
 		score = 0;
-		baseLenght = 12; //A: Make this a constant
+		lenght = password.length();
+		specialCharactersString = "!@#$%&*()'+,-./:;<=>?[]^_`{|}";
+		numberRange = "0123456789";
+		alphabetString = "abcdefghijklmnopqrstuvwxyz";
 	}
 
 	/**
@@ -31,16 +39,24 @@ public class CheckPassword implements PasswordChecker {
 	 * true if the length is at least 12
 	 * 
 	 */
-	//A: Should have 3 thresholds instead, that award a point each
-	//Just 3 ifs in a row for 12, 14 and 16 character length
+
 	public boolean checkLenght() {
-		// check if the length of the string is at least 12
-		if (password.length() >= 12) {
-			// add the length to the score
-			score += password.length()- baseLenght ;
-			// set resultLenght to true
+		// check if the length of the string is 12 or 13 and add 1 to the score
+		if (lenght >= MINLENGHT && lenght < 14) {
 			resultLenght = true;
+			score += 1;
 		}
+		// check if the length of the string is 14 or 15 and add 2 to the score
+		else if (lenght >= 14 && lenght <16) {
+			resultLenght = true;
+			score += 2;
+		}
+		// check if the length of the string is more than 16 and add 3 to the score
+		else if (lenght >= 16) {
+			resultLenght = true;
+			score += 3;
+		}		
+		// if none of those are true, set resultLenght as false
 		else {
 			resultLenght = false;
 		}
@@ -57,14 +73,23 @@ public class CheckPassword implements PasswordChecker {
 	//A: Make char array then iterate through each index and see if the character
 	//is in the password using password.contains(char)
 	public boolean checkSpecialCharacter() {
-		for (int i = 0; i < password.length(); i++) {
-	        if (password.matches("(?=.*[!@#$%^&*()]).*")){
-				resultSpecial = true;
-			} else {
-				resultSpecial = false;
+		specialCharArray = specialCharactersString.toCharArray();
+		
+		for (int i = 0; i < lenght; i++) {
+			for (int y = 0; y < specialCharactersString.length(); y++) {
+		        if (specialCharArray [y] == passwordArray [i]){
+		        	counter ++;
+		        }
 			}
 		}
-		score++;
+		if (counter > 0) {
+			score += counter;
+			resultSpecial = true;
+		}
+		else {
+			resultSpecial = false;
+		}
+		counter = 0;
 		return resultSpecial;
 	}
 
@@ -74,16 +99,24 @@ public class CheckPassword implements PasswordChecker {
 	 * @return
 	 * true if there is a number
 	 */
-	//A: Same as special char note but as an int instead of char
 	public boolean checkNumber() {
-		for (int i = 0; i < password.length(); i++) {
-            if (password.matches("(?=.*[0-9]).*")){
-	            resultNumber = true;
-			} else {
-				resultNumber = false;
+		numbersArray = numberRange.toCharArray();
+		
+		for (int i = 0; i < (lenght); i++) {
+			for (int y = 0; y < numbersArray.length ; y++) {
+		        if (numbersArray [y] == passwordArray [i]){
+		        	counter ++;
+		        }
 			}
 		}
-		score++; //In the if
+		if (counter > 0) {
+			score += counter;
+			resultNumber = true;
+		}
+		else {
+			resultNumber = false;
+		}
+		counter = 0;
 		return resultNumber;
 	}
 	
@@ -118,16 +151,25 @@ public class CheckPassword implements PasswordChecker {
 	 * 
 	 */
 	public boolean checkUpperCase() {
-		for (int i = 0; i < password.length(); i++) {
-            if (password.matches("(?=.*[A-Z]).*")){
-	            resultUpper = true;
-			} else {
-				resultUpper = false;
+		upperArray = alphabetString.toUpperCase().toCharArray();
+		
+		for (int i = 0; i < lenght; i++) {
+			for (int y = 0; y < upperArray.length; y++) {
+		        if (upperArray [y] == passwordArray [i]){
+		        	counter ++;
+		        }
 			}
-			}
-		score++;
-		return resultUpper;
 		}
+		if (counter > 0) {
+			score += counter;
+			resultUpper = true;
+		}
+		else {
+			resultUpper = false;
+		}
+		counter = 0;
+		return resultUpper;
+	}
 	
 	/**
 	 * 

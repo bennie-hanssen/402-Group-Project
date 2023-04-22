@@ -9,13 +9,13 @@ public class TesterCheckPassword {
 	public static void main(String[] args) {
 		
 
-		CheckPassword psswd = new CheckPassword("Abcdefghij!023");	
+		CheckPassword psswd = new CheckPassword("kbcgedfhgtj5!");	
 		boolean resultLenght = psswd.checkLenght();
 		boolean resultSpecial = psswd.checkSpecialCharacter();
 		boolean resultUpper = psswd.checkUpperCase();
 		boolean resultNumber = psswd.checkNumber();
 		boolean resultEmpty = psswd.checkEmptySpace();
-		int score = psswd.score;
+		int score = psswd.getScore();
 
 		
 		String outputValid = "";
@@ -45,23 +45,24 @@ public class TesterCheckPassword {
 		}
 		System.out.println(outputValid);
 		
-		
-		String outputStrenght = "Strenght: ";
-		//check how strong the password is
-		//A: Might have to look at these values again later, also would
-		//prefer giving the numerical score as well
-		if (score < 15) {
+		/*
+		 * Output string for the strenght of the password and score
+		 */
+		String outputStrenght = "\nStrenght: ";
+
+		if (score < 4) {
 			outputStrenght += "poor";
 		}
-		else if (score == 15) {
+		else if (score == 4) {
 			outputStrenght += "fair";
 		}
-		else if (score > 15 && score <= 17) {
+		else if (score > 4 && score <= 6 ) {
 			outputStrenght += "good";
 		}
 		else {
 			outputStrenght += "very good";
 		}
+		outputStrenght += "\nscore: " + score;
 		System.out.println(outputStrenght);
 	}
 }
