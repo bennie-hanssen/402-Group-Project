@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -19,7 +20,7 @@ public class GUI implements ActionListener {
 	private JButton clearButton;
 	private String typedPassword;
 	private JLabel passwordTextDisplayed = new JLabel();
-	Password password = new Password();
+	TesterCheckPassword password = new TesterCheckPassword();
 
 	// Sizing of the frame
 	// JPanel panel = new JPanel();
@@ -29,8 +30,8 @@ public class GUI implements ActionListener {
 		frame.setSize(500, 400);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Terminate program on close
 		frame.setTitle("Password Strength Tester"); // title of window
-		
-		// Customize Java logo 
+
+		// Customize Java logo
 		ImageIcon image = new ImageIcon("passwordstrength.jpg");
 		frame.setIconImage(image.getImage());
 		frame.getContentPane().setBackground(new Color(128, 128, 128));// changes background color
@@ -86,10 +87,13 @@ public class GUI implements ActionListener {
 		 */
 		if (e.getSource() == checkButton) {
 			typedPassword = String.valueOf(passwordText.getPassword());
+			
+			
 
 			if (typedPassword != null) {
 
-				// passwordTextDisplayed.setText(password.PasswordScore(typedPassword));
+				
+				passwordTextDisplayed.setText(password.TesterCheckPassword(typedPassword));
 			}
 
 			// JOptionPane.showMessageDialog(null, typedPassword,"Message",
