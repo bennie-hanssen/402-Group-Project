@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
+import javax.swing.JTextArea;
 
 /////////This implemenets actions from the button
 public class GUI implements ActionListener {
@@ -21,6 +22,8 @@ public class GUI implements ActionListener {
 	private String typedPassword;
 	private JLabel passwordTextDisplayed = new JLabel();
 	TesterCheckPassword password = new TesterCheckPassword();
+	JTextArea textArea = new JTextArea(10, 40);
+	private final static String newline = "\n";
 
 	// Sizing of the frame
 	// JPanel panel = new JPanel();
@@ -42,6 +45,12 @@ public class GUI implements ActionListener {
 		frame.add(passwordlabel);
 		passwordText.setBounds(100, 20, 165, 25);
 		frame.add(passwordText);
+		
+		
+		textArea.setBounds(0, 105, 350, 140);
+		textArea.setBackground(Color.GRAY);
+		textArea.setForeground(Color.RED);
+		frame.add(textArea);
 
 		// Button to check for requirements
 		checkButton = new JButton("Check");
@@ -60,12 +69,31 @@ public class GUI implements ActionListener {
 
 		// Label that displays the password
 
-		passwordTextDisplayed.setBounds(125, 250, 250, 35);
+		passwordTextDisplayed.setBounds(125, 250, 1000, 35);
 		passwordTextDisplayed.setFont(new Font(null, Font.ITALIC, 25));
 		frame.add(passwordTextDisplayed);
+		
 
 		frame.setLayout(null);
 		frame.setVisible(true);
+		
+		/**
+		JTextArea textArea = new JTextArea(
+                "This is an editable JTextArea. " +
+                        "A text area is a \"plain\" text component, " +
+                        "which means that although it can display text " +
+                        "in any font, all of the text is in the same font."
+        );
+        
+        textArea.setFont(new Font("Serif", Font.ITALIC, 16));
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        
+        textArea = new JTextArea(5, 20);
+        textArea.setVisible(true);
+        textArea.setBounds(100, 150, 200, 100);
+        **/
+        
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -75,8 +103,8 @@ public class GUI implements ActionListener {
 		 * password strength
 		 */
 		if (e.getSource() == clearButton) {
-			if (passwordTextDisplayed.getText() != "") {
-				passwordTextDisplayed.setText("");
+			if (textArea.getText() != "") {
+				textArea.setText("");
 			}
 			passwordText.setText("");
 		}
@@ -91,13 +119,9 @@ public class GUI implements ActionListener {
 			
 
 			if (typedPassword != null) {
-
-				
-				passwordTextDisplayed.setText(password.TesterCheckPassword(typedPassword));
+				textArea.append(password.TesterCheckPassword(typedPassword));
 			}
 
-			// JOptionPane.showMessageDialog(null, typedPassword,"Message",
-			// JOptionPane.ERROR_MESSAGE);
 
 		}
 
