@@ -2,7 +2,7 @@
  * Creates output strings using PasswordChecker methods
  * 
  * 
- * @version Apr 24, 2023
+ * @version Apr 22, 2023
  */
 public class TesterCheckPassword {
 
@@ -60,16 +60,15 @@ public String TesterCheckPassword(String pssword) {
 				outputValid += "	- the password has empty spaces or is empty\n";
 			}
 		}
-		System.out.println(outputValid);
 
 		/*
 		 * Output string for the strength of the password and score
 		 */
-		String outputStrenght = "\nStrenght: ";
+		String outputStrenght = "\nStrength: ";
 
 		// If password is not valid, it will have poor strength
 		if (validity == false) {
-			outputStrenght += "poor";
+			outputStrenght += "poor\n";
 		}
 
 		// If password is valid, the strength will depend on its score
@@ -79,11 +78,13 @@ public String TesterCheckPassword(String pssword) {
 			} else if (score > 7 && score <= 9) {
 				outputStrenght += "good";
 			} else {
-				outputStrenght += "very good";
+				outputStrenght += "very good ";
 			}
-			outputStrenght += "\nscore: " + score;
+			outputStrenght += "\n" + "score: " + score + "\n";
 		}
-		return outputStrenght; // returns text specifying strength of password
-		// System.out.println(outputStrenght);
+				outputStrenght += outputValid;
+				return outputStrenght; // returns text specifying strength of password
+				
 }	
+
 }
