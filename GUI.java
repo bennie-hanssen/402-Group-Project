@@ -13,6 +13,13 @@ import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
 
+/**
+ * 
+ * GUI class for displaying output to user
+ * 
+ * May 3, 2023
+ */
+
 /////////This implemenets actions from the button
 public class GUI implements ActionListener {
 	private JLabel passwordlabel;
@@ -45,11 +52,13 @@ public class GUI implements ActionListener {
 		frame.add(passwordlabel);
 		passwordText.setBounds(100, 20, 165, 25);
 		frame.add(passwordText);
-		
-		
+
+		// The text area where the output of tips and strength of password will be
+		// displayed
 		textArea.setBounds(0, 105, 350, 140);
-//		textArea.setBackground(Color.WHITE);
+		;
 		textArea.setForeground(Color.RED);
+		textArea.setEditable(false);
 		frame.add(textArea);
 
 		// Button to check for requirements
@@ -72,32 +81,13 @@ public class GUI implements ActionListener {
 		passwordTextDisplayed.setBounds(125, 250, 1000, 35);
 		passwordTextDisplayed.setFont(new Font(null, Font.ITALIC, 25));
 		frame.add(passwordTextDisplayed);
-		
 
 		frame.setLayout(null);
 		frame.setVisible(true);
-		
-		/**
-		JTextArea textArea = new JTextArea(
-                "This is an editable JTextArea. " +
-                        "A text area is a \"plain\" text component, " +
-                        "which means that although it can display text " +
-                        "in any font, all of the text is in the same font."
-        );
-        
-        textArea.setFont(new Font("Serif", Font.ITALIC, 16));
-        textArea.setLineWrap(true);
-        textArea.setWrapStyleWord(true);
-        
-        textArea = new JTextArea(5, 20);
-        textArea.setVisible(true);
-        textArea.setBounds(100, 150, 200, 100);
-        **/
-        
+
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		// System.out.println("Password requirement Sucessful");
 		/**
 		 * removes text and the message that was displayed notifying the user of the
 		 * password strength
@@ -115,13 +105,10 @@ public class GUI implements ActionListener {
 		 */
 		if (e.getSource() == checkButton) {
 			typedPassword = String.valueOf(passwordText.getPassword());
-			
-			
 
 			if (typedPassword != null) {
 				textArea.append(password.TesterCheckPassword(typedPassword));
 			}
-
 
 		}
 
