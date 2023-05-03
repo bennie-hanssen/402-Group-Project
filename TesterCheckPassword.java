@@ -1,9 +1,9 @@
 /**
  * Creates output strings using PasswordChecker methods
  * 
- * 
  * @version May 3, 2023
  */
+
 public class TesterCheckPassword {
 
 	public String TesterCheckPassword(String pssword) {
@@ -81,8 +81,8 @@ public class TesterCheckPassword {
 			}
 			outputStrenght += "\n" + "score: " + score + "\n";
 		}
-		outputStrenght += outputValid;
-		return outputStrenght; // returns text specifying strength of password and some tips if neccessary
+		outputValid += outputStrenght;
+		return outputValid; // returns text specifying if the password is valid and its strength
 
 	}
 

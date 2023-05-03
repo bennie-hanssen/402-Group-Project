@@ -1,26 +1,22 @@
+/**
+ * 
+ * GUI class for displaying output to user
+ * 
+ * @version May 3, 2023
+ */
+
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
 
-/**
- * 
- * GUI class for displaying output to user
- * 
- * May 3, 2023
- */
-
-/////////This implemenets actions from the button
+/////////This implements actions from the button
 public class GUI implements ActionListener {
 	private JLabel passwordlabel;
 	private JPasswordField passwordText = new JPasswordField();
@@ -53,9 +49,11 @@ public class GUI implements ActionListener {
 		passwordText.setBounds(100, 20, 165, 25);
 		frame.add(passwordText);
 
-		// The text area where the output of tips and strength of password will be
-		// displayed
-		textArea.setBounds(0, 105, 350, 140);
+		/*
+		 * The text area where the output of tips and strength of password will be
+		 * displayed
+		 */
+		textArea.setBounds(0, 105, 350, 200);
 		;
 		textArea.setForeground(Color.RED);
 		textArea.setEditable(false);
@@ -99,7 +97,7 @@ public class GUI implements ActionListener {
 			passwordText.setText("");
 		}
 
-		/**
+		/*
 		 * When check button is pressed, a message will be displayed notifying the user
 		 * of the password strength
 		 */

@@ -1,4 +1,3 @@
-import java.util.stream.IntStream;
 
 /**
  * Password checker class
@@ -6,6 +5,8 @@ import java.util.stream.IntStream;
  * @version Apr 22, 2023
  * 
  */
+
+import java.util.stream.IntStream;
 
 public class CheckPassword implements PasswordChecker {
 	private String password, specialCharactersString, numberRange, alphabetString;
