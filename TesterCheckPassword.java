@@ -2,12 +2,11 @@
  * Creates output strings using PasswordChecker methods
  * 
  * 
- * @version Apr 22, 2023
+ * @version May 3, 2023
  */
 public class TesterCheckPassword {
 
-	
-public String TesterCheckPassword(String pssword) {
+	public String TesterCheckPassword(String pssword) {
 		CheckPassword psswd = new CheckPassword(pssword); // variable that contains the password typed in GUI
 
 		boolean validity; // variable that will be used to declare if the password is valid or not
@@ -82,9 +81,9 @@ public String TesterCheckPassword(String pssword) {
 			}
 			outputStrenght += "\n" + "score: " + score + "\n";
 		}
-				outputStrenght += outputValid;
-				return outputStrenght; // returns text specifying strength of password
-				
-}	
+		outputStrenght += outputValid;
+		return outputStrenght; // returns text specifying strength of password and some tips if neccessary
+
+	}
 
 }
